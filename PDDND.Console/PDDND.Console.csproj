@@ -42,6 +42,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Program.cs" />
+    <Compile Include="Projetos\Dashboard.cs" />
+    <Compile Include="Projetos\Projeto.cs" />
+    <Compile Include="Projetos\Projetos.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
