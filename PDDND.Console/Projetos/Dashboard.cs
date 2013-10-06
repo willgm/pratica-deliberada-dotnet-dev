@@ -17,27 +17,27 @@ namespace PDDND.Console.Projetos
 
         public int TotalHorasTrabalhadas()
         {
-            throw new NotImplementedException();
+            return Projetos.Listar().Sum(p => p.HorasTrabalhadas);
         }
 
         public IEnumerable<Projeto> OrdenarProjetosPorTotalHoras()
         {
-            throw new NotImplementedException();
+            return Projetos.Listar().OrderBy(p => p.HorasTrabalhadas);
         }
 
         public IEnumerable<Projeto> OrdenarProjetosPorTotalHorasDecrescente()
         {
-            throw new NotImplementedException();
+            return Projetos.Listar().OrderByDescending(p => p.HorasTrabalhadas);
         }
 
         public IEnumerable<Projeto> FiltrarProjetosPorTotalHorasMinimo(int x)
         {
-            throw new NotImplementedException();
+            return Projetos.Listar().Where(p => p.HorasTrabalhadas >= x);
         }
 
         public IEnumerable<Projeto> FiltrarProjetosPorTotalHorasMaximo(int x)
         {
-            throw new NotImplementedException();
+            return Projetos.Listar().Where(p => p.HorasTrabalhadas <= x);
         }
     }
 
