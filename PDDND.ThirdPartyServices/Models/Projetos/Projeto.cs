@@ -4,10 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace PDDND.Console.Projetos
+namespace PDDND.ThirdPartyServices.Projetos
 {
     public class Projeto
     {
+        public long Id { get; set; }
         public String Nome { get; set; }
         public int HorasTrabalhadas { get; set; }
     }
