@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 using System.Web.Http;
 using System.Web.Http.Dispatcher;
 using System.Web.Http.SelfHost;
+using System.Net.Http;
 
 namespace PDDND.Console.Projetos
 {
@@ -17,11 +18,13 @@ namespace PDDND.Console.Projetos
     public class ProjetosClientTest
     {
         private HttpSelfHostServer server;
+        private ProjetosClient projetos;
 
         [TestInitialize]
         public void Setup()
         {
             server = new ThirdPartyServicesHelper().SubirServidor();
+            projetos = new ProjetosClient(new HttpClient());
         }
 
         [TestCleanup]
@@ -37,7 +40,7 @@ namespace PDDND.Console.Projetos
         public void DeveListarTodosProjetos()
         {
             var expected = new ProjetosDbContext().Projetos.Count();
-            var actual = new ProjetosClient().Listar().Count();
+            var actual = projetos.Listar().Count();
             Assert.AreEqual(expected, actual);
         }
 
@@ -45,7 +48,7 @@ namespace PDDND.Console.Projetos
         public void DeveObterProjetoPorId()
         {
             var expected = "Vencer Raphael no Mortal Kombat";
-            var actual = new ProjetosClient().ObterPorId(2).Nome;
+            var actual = projetos.ObterPorId(2).Nome;
             Assert.AreEqual(expected, actual);
         }
 
@@ -53,14 +56,14 @@ namespace PDDND.Console.Projetos
         public void DevePostarUmNovoProjeto()
         {
             var count = new ProjetosDbContext().Projetos.Count();
-            new ProjetosClient().Postar(
+            projetos.Postar(
                 new Projeto
                 {
                     Nome = "Teste",
                     HorasTrabalhadas = 0
                 });
             var expected = count + 1;
-            var actual = new ProjetosClient().Listar().Count();
+            var actual = projetos.Listar().Count();
             Assert.AreEqual(expected, actual);
         }
     }

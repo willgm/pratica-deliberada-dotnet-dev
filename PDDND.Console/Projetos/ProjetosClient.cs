@@ -12,35 +12,32 @@ namespace PDDND.Console.Projetos
 {
     public class ProjetosClient
     {
+        private HttpClient client;
+
+        public ProjetosClient(HttpClient httpClient)
+        {
+            client = httpClient;
+            client.BaseAddress = new Uri("http://localhost:60000/");
+            client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+        }
+
         public IEnumerable<Projeto> Listar()
         {
-            HttpClient client = new HttpClient();
-            client.BaseAddress = new Uri("http://localhost:60000/");
-            client.DefaultRequestHeaders.Accept.Add(
-                new MediaTypeWithQualityHeaderValue("application/json"));
-            HttpResponseMessage response = client.GetAsync("api/projetos").Result;
+            var response = client.GetAsync("api/projetos").Result;
             response.EnsureSuccessStatusCode();
             return response.Content.ReadAsAsync<IEnumerable<Projeto>>().Result;
         }
 
         public Projeto ObterPorId(long id)
         {
-            HttpClient client = new HttpClient();
-            client.BaseAddress = new Uri("http://localhost:60000/");
-            client.DefaultRequestHeaders.Accept.Add(
-                new MediaTypeWithQualityHeaderValue("application/json"));
-            HttpResponseMessage response = client.GetAsync("api/projetos/" + id).Result;
+            var response = client.GetAsync("api/projetos/" + id).Result;
             response.EnsureSuccessStatusCode();
             return response.Content.ReadAsAsync<Projeto>().Result;
         }
 
         public void Postar(Projeto projeto)
         {
-            HttpClient client = new HttpClient();
-            client.BaseAddress = new Uri("http://localhost:60000/");
-            client.DefaultRequestHeaders.Accept.Add(
-                new MediaTypeWithQualityHeaderValue("application/json"));
-            HttpResponseMessage response = client.PostAsJsonAsync<Projeto>("api/projetos", projeto).Result;
+            var response = client.PostAsJsonAsync<Projeto>("api/projetos", projeto).Result;
             response.EnsureSuccessStatusCode();
         }
     }
