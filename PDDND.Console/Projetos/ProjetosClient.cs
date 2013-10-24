@@ -25,12 +25,23 @@ namespace PDDND.Console.Projetos
 
         public Projeto ObterPorId(long id)
         {
-            throw new NotImplementedException();
+            HttpClient client = new HttpClient();
+            client.BaseAddress = new Uri("http://localhost:60000/");
+            client.DefaultRequestHeaders.Accept.Add(
+                new MediaTypeWithQualityHeaderValue("application/json"));
+            HttpResponseMessage response = client.GetAsync("api/projetos/" + id).Result;
+            response.EnsureSuccessStatusCode();
+            return response.Content.ReadAsAsync<Projeto>().Result;
         }
 
         public void Postar(Projeto projeto)
         {
-            throw new NotImplementedException();
+            HttpClient client = new HttpClient();
+            client.BaseAddress = new Uri("http://localhost:60000/");
+            client.DefaultRequestHeaders.Accept.Add(
+                new MediaTypeWithQualityHeaderValue("application/json"));
+            HttpResponseMessage response = client.PostAsJsonAsync<Projeto>("api/projetos", projeto).Result;
+            response.EnsureSuccessStatusCode();
         }
     }
 }
